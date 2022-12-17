@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="vendorItemBalance"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="vname" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="vid" isForPrompting="true" class="java.lang.Integer"/>
+	<queryString><![CDATA[select * from (select t1.item_type_id, skg1-IFNULL(skg2, 0) as availableInKg, bag1-IFNULL(bag2, 0) as availableInBag from 
+(select si.item_type_id, sum(si.quantity_in_kg) as skg1, sum(si.quantity_in_bag) as bag1 from slip s join slip_item si 
+on s.id=si.slip_id where s.vendor_id=$P{vid} group by si.item_type_id) as t1 left join 
+(select si.item_type_id, sum(si.quantity_in_kg) as skg2, SUM(si.quantity_in_bag) AS bag2 from slip s join slip_item si on s.id=si.slip_id 
+where si.vendor_id=$P{vid} group by si.item_type_id) as t2 on t1.item_type_id = t2.item_type_id) as t join item_type it on
+t.item_type_id = it.id]]></queryString>
+
+	<field name="item_type_id" class="java.lang.Integer"/>
+	<field name="availableInKg" class="java.lang.Double"/>
+	<field name="availableInBag" class="java.lang.Double"/>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="code" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+
+	<variable name="serial" class="java.lang.Integer" resetType="Report" calculation="Count">
+		<variableExpression><![CDATA[$V{serial}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer("0")]]></initialValueExpression>
+	</variable>
+	<variable name="sum_bag" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{availableInBag}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double("0")]]></initialValueExpression>
+	</variable>
+	<variable name="sum_kg" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{availableInKg}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double("0")]]></initialValueExpression>
+	</variable>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="108"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="2"
+						width="535"
+						height="24"
+						key="staticText-1"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="SolaimanLipi" size="18"/>
+					</textElement>
+				<text><![CDATA[মেসার্স লক্ষ্মী ভাণ্ডার]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="26"
+						width="535"
+						height="20"
+						key="staticText-2"/>
+					<box>					<bottomPen lineWidth="0.0"/>
+</box>
+					<textElement textAlignment="Center">
+						<font fontName="SolaimanLipi" pdfFontName="SolaimanLipi_20-04-07.ttf" size="12" isBold="true" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+					</textElement>
+				<text><![CDATA[প্রোঃ সুবাস কুমার শিকদার এন্ড ব্রাদার্স  
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="46"
+						width="535"
+						height="18"
+						key="staticText-3"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="SolaimanLipi"/>
+					</textElement>
+				<text><![CDATA[মোকামঃ পুরাতন বাজার, মাগুরা।]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="64"
+						width="535"
+						height="23"
+						key="staticText-4"/>
+					<box>					<bottomPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Center">
+						<font fontName="SolaimanLipi" size="14"/>
+					</textElement>
+				<text><![CDATA[পণ্যের পরিমাণ (সাপ্লায়ার অনুসারে)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="85"
+						width="41"
+						height="21"
+						key="staticText-5"/>
+					<box>					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" pdfFontName="SolaimanLipi_20-04-07.ttf" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+					</textElement>
+				<text><![CDATA[সাপ্লায়ারঃ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="47"
+						y="87"
+						width="147"
+						height="19"
+						key="textField-1"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{vname}]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="25"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="41"
+						y="0"
+						width="153"
+						height="24"
+						backcolor="#CCCCCC"
+						key="staticText-6"/>
+					<box>					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" pdfFontName="SolaimanLipi_20-04-07.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+					</textElement>
+				<text><![CDATA[পণ্য]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="194"
+						y="0"
+						width="167"
+						height="24"
+						backcolor="#CCCCCC"
+						key="staticText-7"/>
+					<box>					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" pdfFontName="SolaimanLipi_20-04-07.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+					</textElement>
+				<text><![CDATA[পরিমাণ (বস্তা)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="361"
+						y="0"
+						width="174"
+						height="24"
+						backcolor="#CCCCCC"
+						key="staticText-8"/>
+					<box>					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" pdfFontName="SolaimanLipi_20-04-07.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+					</textElement>
+				<text><![CDATA[পরিমাণ (কেজি)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="0"
+						width="41"
+						height="24"
+						backcolor="#CCCCCC"
+						key="staticText-9"/>
+					<box>					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" pdfFontName="SolaimanLipi_20-04-07.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+					</textElement>
+				<text><![CDATA[#]]></text>
+				</staticText>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="24"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="42"
+						y="0"
+						width="152"
+						height="24"
+						key="textField-2"/>
+					<box>					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{name}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="42"
+						height="24"
+						key="textField-3"/>
+					<box>					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$V{serial}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="194"
+						y="0"
+						width="167"
+						height="24"
+						key="textField-4"/>
+					<box>					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{availableInBag}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="361"
+						y="0"
+						width="174"
+						height="24"
+						key="textField-5"/>
+					<box>					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{availableInKg}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<lastPageFooter>
+			<band height="15"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="106"
+						height="15"
+						key="textField-6"/>
+					<box></box>
+					<textElement verticalAlignment="Bottom">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</band>
+		</lastPageFooter>
+		<summary>
+			<band height="50"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="106"
+						y="0"
+						width="92"
+						height="22"
+						key="staticText-10"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[মোট
+]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="198"
+						y="0"
+						width="163"
+						height="23"
+						key="textField-7"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{sum_bag}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="361"
+						y="0"
+						width="173"
+						height="22"
+						key="textField-8"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{sum_kg}]]></textFieldExpression>
+				</textField>
+			</band>
+		</summary>
+</jasperReport>

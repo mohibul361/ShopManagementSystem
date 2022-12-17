@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- was: <?xml version="1.0" encoding="UTF-8"?> -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
+
+   <context:component-scan base-package="com.sencillo." />
+	<mvc:annotation-driven />
+	<!-- <mvc:view-controller path="/" view-name="index" /> -->
+
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView" />
+	</bean>
+
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/layouts/layouts.xml</value>
+				<value>/WEB-INF/layouts/views.xml</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix">
+			<value>/WEB-INF/jsp/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="/resources/messages" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	<!-- <bean id="subscriberTypeValidator" class="com.demo.validators.SubscriberTypeValidator" /> <bean id="userPreference" class="com.demo.models.UserPreference" scope="session"> <aop:scoped-proxy 
+		/> </bean> -->
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/inventory?characterEncoding=UTF-8" />
+		<!--<property name="url" value="jdbc:mysql://127.0.0.1:3306/inv_lax?characterEncoding=UTF-8" />-->
+		<property name="username" value="root" />
+		<property name="password" value="12345" />
+	</bean>
+
+	<!-- Hibernate 4 SessionFactory Bean definition -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+			    <value>com.sencillo.model.User</value>
+				<value>com.sencillo.model.Role</value>
+				<value>com.sencillo.model.Page</value>
+				<value>com.sencillo.model.ItemType</value>
+				<value>com.sencillo.model.ItemTypeAttribute</value>
+				<value>com.sencillo.model.ItemTypeAttributeComboData</value>
+				<value>com.sencillo.model.Item</value>
+				<value>com.sencillo.model.ItemAttributeValue</value>
+				<value>com.sencillo.model.Slip</value>
+				<value>com.sencillo.model.SlipItem</value>
+				<value>com.sencillo.model.Recipient</value>
+				<value>com.sencillo.model.Vendor</value>
+				<value>com.sencillo.model.Region</value>
+				<value>com.sencillo.model.ProblemType</value>
+				<value>com.sencillo.model.ReturnFrom</value>
+				<value>com.sencillo.model.ReturnItemInfo</value>
+				<value>com.sencillo.model.Transaction</value>
+				<value>com.sencillo.model.Company</value> 
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				 <!-- this will DROP and create tables, SO BE CAREFULL TO ENABLE -->
+				<!-- <prop key="hibernate.hbm2ddl.auto">create</prop>  -->
+				 <prop key="hibernate.hbm2ddl.auto">update</prop> 
+			</props>
+		</property>
+
+	</bean>
+	<tx:annotation-driven />
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/resources/**"/>			
+			<bean class="com.sencillo.interceptor.LoginInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="bn" />
+    </bean>
+  
+    <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        <property name="paramName" value="lang" />
+    </bean>
+     
+    <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+    	<property name="interceptors">
+        	<ref bean="localeChangeInterceptor" />
+    	</property>
+	</bean>
+	
+	<mvc:interceptors>  
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+              <property name="paramName" value="lang"></property>
+        </bean>
+	</mvc:interceptors>
+
+
+	<!-- this is for excel export -->
+	<bean class="org.springframework.web.servlet.view.XmlViewResolver">
+	   <property name="location">
+	       <value>/WEB-INF/spring-excel-views.xml</value>
+	   </property>
+	   <property name="order" value="0" />
+	</bean>
+	<!-- this is for pdf view -->
+	<bean id="viewResolver1" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+        <property name="order" value="1"/>
+        <property name="basename" value="views"/>
+    </bean>
+	
+	<!-- this is for file upload -->
+	<bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- max upload size in bytes -->
+        <property name="maxUploadSize" value="20971520" /> <!-- 20MB -->
+         
+        <!-- max size of file in memory (in bytes) -->
+        <property name="maxInMemorySize" value="1048576" /> <!-- 1MB -->
+     </bean>
+
+</beans>

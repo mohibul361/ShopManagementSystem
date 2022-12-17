@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="deliveryReport"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="842"
+		 pageHeight="595"
+		 columnWidth="782"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="cname" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="fromdate" isForPrompting="true" class="java.util.Date"/>
+	<parameter name="todate" isForPrompting="true" class="java.util.Date"/>
+	<parameter name="sql" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[$P!{sql}]]></queryString>
+
+	<field name="id" class="java.lang.Integer"/>
+	<field name="challan_price" class="java.lang.Double"/>
+	<field name="creation_date" class="java.sql.Timestamp"/>
+	<field name="deposit" class="java.lang.Double"/>
+	<field name="labour_cost" class="java.lang.Double"/>
+	<field name="prev_balance" class="java.lang.Double"/>
+	<field name="remarks" class="java.lang.String"/>
+	<field name="slip_date" class="java.sql.Date"/>
+	<field name="slip_number" class="java.lang.String"/>
+	<field name="slip_status" class="java.lang.Integer"/>
+	<field name="slip_type" class="java.lang.Integer"/>
+	<field name="total_price" class="java.lang.Double"/>
+	<field name="total_qty_in_bag" class="java.lang.Double"/>
+	<field name="total_qty_in_kg" class="java.lang.Double"/>
+	<field name="transport_cost" class="java.lang.Double"/>
+	<field name="created_by" class="java.lang.Integer"/>
+	<field name="customer_id" class="java.lang.Integer"/>
+	<field name="parent_slip_id" class="java.lang.Integer"/>
+	<field name="return_from_id" class="java.lang.Integer"/>
+	<field name="vendor_id" class="java.lang.Integer"/>
+	<field name="approved_by" class="java.lang.Integer"/>
+	<field name="approved_date" class="java.sql.Timestamp"/>
+	<field name="address" class="java.lang.String"/>
+	<field name="mobile_no1" class="java.lang.String"/>
+	<field name="mobile_no2" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="banner" class="java.lang.Object"/>
+	<field name="business_info" class="java.lang.String"/>
+	<field name="contact_info" class="java.lang.String"/>
+	<field name="cname" class="java.lang.String"/>
+	<field name="proprietor" class="java.lang.String"/>
+
+	<variable name="sum_bag" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_qty_in_bag}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double("0")]]></initialValueExpression>
+	</variable>
+	<variable name="sum_kg" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_qty_in_kg}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double("0")]]></initialValueExpression>
+	</variable>
+	<variable name="sum_total" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_price}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double("0")]]></initialValueExpression>
+	</variable>
+	<variable name="sum_deposit" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{deposit}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Double("0")]]></initialValueExpression>
+	</variable>
+	<variable name="serial" class="java.lang.Integer" resetType="Report" calculation="Count">
+		<variableExpression><![CDATA[$V{serial}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer("1")]]></initialValueExpression>
+	</variable>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="124"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="68"
+						width="782"
+						height="23"
+						key="staticText-4"/>
+					<box>					<bottomPen lineWidth="0.5"/>
+</box>
+					<textElement textAlignment="Center">
+						<font fontName="SolaimanLipi" pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ডেলিভারি রিপোর্ট]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="93"
+						width="50"
+						height="21"
+						key="staticText-5"/>
+					<box>					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" pdfFontName="SolaimanLipi_20-04-07.ttf" size="12" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+					</textElement>
+				<text><![CDATA[কাস্টমার:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="53"
+						y="94"
+						width="333"
+						height="20"
+						key="textField-1"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" size="12"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{cname}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="615"
+						y="93"
+						width="74"
+						height="17"
+						key="textField-2"/>
+					<box></box>
+					<textElement>
+						<font fontName="SolaimanLipi" size="12"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$P{fromdate}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="689"
+						y="93"
+						width="28"
+						height="17"
+						key="staticText-6"/>
+					<box></box>
+					<textElement>
+						<font fontName="SolaimanLipi" size="12"/>
+					</textElement>
+				<text><![CDATA[থেকে]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="717"
+						y="93"
+						width="65"
+						height="17"
+						key="textField-3"/>
+					<box></box>
+					<textElement>
+						<font fontName="SolaimanLipi" size="12"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$P{todate}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="1"
+						width="782"
+						height="29"
+						key="textField-20"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="SolaimanLipi" size="18"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{cname}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="30"
+						width="782"
+						height="20"
+						key="textField-21"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="SolaimanLipi" pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{proprietor}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="50"
+						width="782"
+						height="20"
+						key="textField-22"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="SolaimanLipi" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{business_info}]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="26"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="-1"
+						y="0"
+						width="26"
+						height="26"
+						backcolor="#CCCCCC"
+						key="staticText-7"/>
+					<box>					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" pdfFontName="SolaimanLipi_20-04-07.ttf" size="12" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+					</textElement>
+				<text><![CDATA[#]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="25"
+						y="0"
+						width="120"
+						height="26"
+						backcolor="#CCCCCC"
+						key="staticText-8"/>
+					<box>					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" pdfFontName="SolaimanLipi_20-04-07.ttf" size="12" isPdfEmbedded ="false" pdfEncoding ="Identity-H"/>
+					</textElement>
+				<text><![CDATA[চালান নাম্বার]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="145"
+						y="0"
+						width="76"
+						height="26"
+						backcolor="#CCCCCC"
+						key="staticText-9"/>
+					<box>					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" pdfFontName="SolaimanLipi_20-04-07.ttf" size="12" isPdfEmbedded ="false" pdfEncoding ="Identity-H"/>
+					</textElement>
+				<text><![CDATA[চালান তারিখ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="221"
+						y="0"
+						width="143"
+						height="26"
+						backcolor="#CCCCCC"
+						key="staticText-10"/>
+					<box>					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" pdfFontName="SolaimanLipi_20-04-07.ttf" size="12" isPdfEmbedded ="false" pdfEncoding ="Identity-H"/>
+					</textElement>
+				<text><![CDATA[মন্তব্য]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="364"
+						y="0"
+						width="177"
+						height="26"
+						backcolor="#CCCCCC"
+						key="staticText-11"/>
+					<box>					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" pdfFontName="SolaimanLipi_20-04-07.ttf" size="12" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+					</textElement>
+				<text><![CDATA[কাস্টমার]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="541"
+						y="0"
+						width="56"
+						height="26"
+						backcolor="#CCCCCC"
+						key="staticText-12"/>
+					<box>					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" pdfFontName="SolaimanLipi_20-04-07.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+					</textElement>
+				<text><![CDATA[পরিমাণ (বস্তা)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="597"
+						y="0"
+						width="60"
+						height="26"
+						backcolor="#CCCCCC"
+						key="staticText-13"/>
+					<box>					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" pdfFontName="SolaimanLipi_20-04-07.ttf" size="10" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+					</textElement>
+				<text><![CDATA[পরিমাণ (কেজি)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="657"
+						y="0"
+						width="72"
+						height="26"
+						backcolor="#CCCCCC"
+						key="staticText-14"/>
+					<box>					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" pdfFontName="SolaimanLipi_20-04-07.ttf" size="12" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+					</textElement>
+				<text><![CDATA[মূল্য]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="729"
+						y="0"
+						width="53"
+						height="26"
+						backcolor="#CCCCCC"
+						key="staticText-15"/>
+					<box>					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" pdfFontName="SolaimanLipi_20-04-07.ttf" size="12" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+					</textElement>
+				<text><![CDATA[জমা]]></text>
+				</staticText>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="23"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="-1"
+						y="1"
+						width="26"
+						height="22"
+						key="textField-4"/>
+					<box rightPadding="6">					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$V{serial}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="25"
+						y="1"
+						width="120"
+						height="22"
+						key="textField-5"/>
+					<box leftPadding="3" rightPadding="6">					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{slip_number}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="145"
+						y="1"
+						width="76"
+						height="22"
+						key="textField-6"/>
+					<box leftPadding="3">					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{slip_date}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="221"
+						y="1"
+						width="143"
+						height="22"
+						key="textField-7"/>
+					<box leftPadding="3" rightPadding="6">					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{remarks}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="364"
+						y="1"
+						width="177"
+						height="22"
+						key="textField-8"/>
+					<box leftPadding="3">					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{name}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="541"
+						y="1"
+						width="56"
+						height="22"
+						key="textField-9"/>
+					<box rightPadding="4">					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{total_qty_in_bag}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="597"
+						y="1"
+						width="60"
+						height="22"
+						key="textField-10"/>
+					<box rightPadding="4">					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{total_qty_in_kg}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="657"
+						y="1"
+						width="72"
+						height="22"
+						key="textField-11"/>
+					<box rightPadding="4">					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{total_price}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="729"
+						y="1"
+						width="53"
+						height="22"
+						key="textField-12"/>
+					<box rightPadding="4">					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="SolaimanLipi" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{deposit}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="26"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="-1"
+						y="0"
+						width="106"
+						height="26"
+						key="textField-13"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="628"
+						y="0"
+						width="133"
+						height="26"
+						key="textField-14"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="761"
+						y="0"
+						width="21"
+						height="26"
+						key="textField-15"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER} + ""]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="22"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="#,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="541"
+						y="0"
+						width="56"
+						height="22"
+						key="textField-16"/>
+					<box rightPadding="3">					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{sum_bag}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="597"
+						y="0"
+						width="60"
+						height="22"
+						key="textField-17"/>
+					<box rightPadding="3">					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{sum_kg}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="657"
+						y="0"
+						width="72"
+						height="22"
+						key="textField-18"/>
+					<box rightPadding="3">					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{sum_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="729"
+						y="0"
+						width="53"
+						height="22"
+						key="textField-19"/>
+					<box rightPadding="3">					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{sum_deposit}]]></textFieldExpression>
+				</textField>
+			</band>
+		</summary>
+</jasperReport>

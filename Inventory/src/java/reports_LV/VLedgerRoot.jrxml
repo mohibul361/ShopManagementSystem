@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="VLedgerRoot"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="782"
+		 pageHeight="595"
+		 columnWidth="724"
+		 columnSpacing="0"
+		 leftMargin="29"
+		 rightMargin="29"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isFloatColumnFooter="true"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["/usr/local/tools/iReport/bin/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fromdate" isForPrompting="true" class="java.util.Date"/>
+	<parameter name="todate" isForPrompting="true" class="java.util.Date"/>
+	<parameter name="vendor_id" isForPrompting="true" class="java.lang.Integer"/>
+	<queryString><![CDATA[select * from (select month(s.slip_date) as mm, year(s.slip_date) as yy, r.name as vname, r.address as vaddress from slip s join vendor r
+on s.vendor_id=r.id where 
+s.vendor_id=$P{vendor_id} and s.slip_date between $P{fromdate} and $P{todate}
+union
+select month(c.date) as mm, year(c.date) as yy, r.name as vname, r.address as vaddress from transaction c join vendor r
+on c.vendor_id=r.id where c.vendor_id=$P{vendor_id} and c.date between $P{fromdate} and $P{todate}) as foo]]></queryString>
+
+	<field name="mm" class="java.lang.Long"/>
+	<field name="yy" class="java.lang.Long"/>
+	<field name="vname" class="java.lang.String"/>
+	<field name="vaddress" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="109"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="3"
+						width="724"
+						height="24"
+						key="staticText-9"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="SolaimanLipi" size="18"/>
+					</textElement>
+				<text><![CDATA[মেসার্স লক্ষ্মী ভাণ্ডার]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="63"
+						width="724"
+						height="23"
+						key="staticText-10"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="SolaimanLipi" pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<text><![CDATA[সাপ্লায়ার লেজার রিপোর্ট]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="86"
+						width="52"
+						height="17"
+						key="staticText-11"/>
+					<box></box>
+					<textElement>
+						<font fontName="SolaimanLipi" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[সাপ্লায়ার:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="563"
+						y="86"
+						width="74"
+						height="17"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font fontName="SolaimanLipi" size="12"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$P{fromdate}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="637"
+						y="86"
+						width="28"
+						height="17"
+						key="staticText-12"/>
+					<box></box>
+					<textElement>
+						<font fontName="SolaimanLipi" size="12"/>
+					</textElement>
+				<text><![CDATA[থেকে]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="665"
+						y="86"
+						width="59"
+						height="17"
+						key="textField-2"/>
+					<box></box>
+					<textElement>
+						<font fontName="SolaimanLipi" size="12"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$P{todate}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="52"
+						y="86"
+						width="240"
+						height="16"
+						key="textField-3"/>
+					<box></box>
+					<textElement>
+						<font fontName="SolaimanLipi" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{vname}+", "+$F{vaddress}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="27"
+						width="724"
+						height="20"
+						key="staticText-13"/>
+					<box>					<bottomPen lineWidth="0.0"/>
+</box>
+					<textElement textAlignment="Center">
+						<font fontName="SolaimanLipi" pdfFontName="SolaimanLipi_20-04-07.ttf" size="14" isBold="true" isPdfEmbedded ="true" pdfEncoding ="Identity-H"/>
+					</textElement>
+				<text><![CDATA[প্রোঃ সুবাস কুমার শিকদার এন্ড ব্রাদার্স  
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="47"
+						width="724"
+						height="18"
+						key="staticText-15"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="SolaimanLipi" size="12"/>
+					</textElement>
+				<text><![CDATA[মোকামঃ পুরাতন বাজার, মাগুরা।]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="105"
+						width="724"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="19"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="4"
+						y="0"
+						width="49"
+						height="17"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font fontName="SolaimanLipi" pdfFontName="Helvetica-BoldOblique" size="12" isBold="true" isItalic="true" isUnderline="true"/>
+					</textElement>
+				<text><![CDATA[তারিখ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="567"
+						y="0"
+						width="79"
+						height="17"
+						key="staticText-3"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="SolaimanLipi" pdfFontName="Helvetica-BoldOblique" size="12" isBold="true" isItalic="true" isUnderline="true"/>
+					</textElement>
+				<text><![CDATA[ডেবিট]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="658"
+						y="0"
+						width="61"
+						height="17"
+						key="staticText-4"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="SolaimanLipi" pdfFontName="Helvetica-BoldOblique" size="12" isBold="true" isItalic="true" isUnderline="true"/>
+					</textElement>
+				<text><![CDATA[ক্রেডিট]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="61"
+						y="0"
+						width="79"
+						height="17"
+						key="staticText-5"/>
+					<box></box>
+					<textElement>
+						<font fontName="SolaimanLipi" pdfFontName="Helvetica-BoldOblique" size="12" isBold="true" isItalic="true" isUnderline="true"/>
+					</textElement>
+				<text><![CDATA[ডকুমেন্ট নাম্বার]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="204"
+						y="0"
+						width="302"
+						height="17"
+						key="staticText-7"/>
+					<box></box>
+					<textElement>
+						<font fontName="SolaimanLipi" pdfFontName="Helvetica-BoldOblique" size="12" isBold="true" isItalic="true" isUnderline="true"/>
+					</textElement>
+				<text><![CDATA[মন্তব্য]]></text>
+				</staticText>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="41"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="0"
+						width="724"
+						height="41"
+						key="subreport-1"
+						isRemoveLineWhenBlank="true"/>
+					<subreportParameter  name="m">
+						<subreportParameterExpression><![CDATA[$F{mm}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="yr">
+						<subreportParameterExpression><![CDATA[$F{yy}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="vendor_id">
+						<subreportParameterExpression><![CDATA[$P{vendor_id}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["VLedger.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="20"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="604"
+						y="0"
+						width="100"
+						height="17"
+						key="textField-5"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="703"
+						y="0"
+						width="21"
+						height="17"
+						key="textField-6"/>
+					<box></box>
+					<textElement verticalAlignment="Bottom">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER} + ""]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="3"
+						width="106"
+						height="14"
+						key="textField-7"/>
+					<box></box>
+					<textElement verticalAlignment="Bottom">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

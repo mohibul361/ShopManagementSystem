@@ -1,0 +1,100 @@
+.badge {
+	display: inline-block;
+	min-width: 10px;
+	padding: 3px 7px;
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 1;
+	color: #FFF;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	background-color: #777;
+	border-radius: 10px;
+}
+.badgeLowMark {
+	display: inline-block;
+	min-width: 10px;
+	padding: 3px 7px;
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 1;
+	color: #FFF;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	background-color: red;
+	border-radius: 10px;
+}
+.badgeHighMark {
+	display: inline-block;
+	min-width: 10px;
+	padding: 3px 7px;
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 1;
+	color: #FFF;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	background-color: darkblue;
+	border-radius: 10px;
+}
+
+.panel {
+	background-color: #FFF;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+	border-color: #DDD;
+	margin-bootom: 10px;
+}
+
+.panel-heading {
+	padding: 8px 15px;
+	border-bottom: 1px solid transparent;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	/* color: #333; */
+	background-color: #F5F5F5;
+	border-color: #DDD;
+	color: #013D6C;
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.panel-body {
+	padding: 0px 15px;
+}
+
+.list-group {
+	margin: 0px;
+	padding: 0px;
+}
+
+.list-group-item {
+	position: relative;
+	display: block;
+	padding: 10px 15px;
+	margin-bottom: -1px;
+	background-color: #FFF;
+	border: 1px solid #DDD;
+	border-width: 1px 0px;
+	border-radius: 0px;
+}
+
+.list-group-item>.badge {
+	float: right;
+}
+
+.panel-footer {
+	padding: 10px 15px;
+	background-color: #F5F5F5;
+	border-top: 1px solid #DDD;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+
+.panel-footer>.badge {
+	float: right;
+}

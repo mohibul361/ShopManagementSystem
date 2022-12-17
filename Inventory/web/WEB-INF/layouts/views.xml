@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+
+	<definition name="index" extends="DefaultTemplate">
+		<put-attribute name="title" value="Inventory Management"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/index.jsp" />
+	</definition>
+	
+	<definition name="stock" extends="DefaultTemplate">
+		<put-attribute name="title" value="Stock"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/stock.jsp" />
+	</definition>
+	
+	<definition name="dailyTransactions" extends="DefaultTemplate">
+		<put-attribute name="title" value="daily Transactions"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/dailyTransaction.jsp" />
+	</definition>
+	
+	<definition name="login" extends="DefaultTemplate">
+		<put-attribute name="title" value="Inventory Management - Login" />
+		<put-attribute name="body" value="/WEB-INF/jsp/login.jsp" />
+	</definition>
+	
+	<definition name="404" extends="CustomTemplate">
+		<put-attribute name="title" value="Page Not Found Error" />
+		<put-attribute name="error" value="/WEB-INF/jsp/404.jsp" />
+	</definition>
+
+	<definition name="500" extends="CustomTemplate">
+		<put-attribute name="title" value="Internal Server Error" />
+		<put-attribute name="error" value="/WEB-INF/jsp/500.jsp" />
+	</definition>
+	<definition name="endpoints" extends="CustomTemplate">
+		<put-attribute name="title" value="Internal Server Error" />
+		<put-attribute name="error" value="/WEB-INF/jsp/endpoints.jsp" />
+	</definition>
+	<definition name="endpointsdoc" extends="CustomTemplate">
+		<put-attribute name="title" value="Internal Server Error" />
+		<put-attribute name="error" value="/WEB-INF/jsp/endpointsdoc.jsp" />
+	</definition>
+	<!-- Administration -->
+	<definition name="user" extends="DefaultTemplate">
+		<put-attribute name="title" value="Add/Edit User"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/administration/user.jsp" />
+	</definition>
+	
+	<definition name="rolePage" extends="DefaultTemplate">
+		<put-attribute name="title" value="Assign Page to Role" />
+		<put-attribute name="body" value="/WEB-INF/jsp/administration/rolePage.jsp" />
+	</definition>
+	
+	<definition name="page" extends="DefaultTemplate">
+	<put-attribute name="title" value="Add/Edit Page"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/administration/page.jsp" />
+	</definition>
+	
+	<definition name="changePassword" extends="DefaultTemplate">
+		<put-attribute name="title" value="Change Password" />
+		<put-attribute name="body" value="/WEB-INF/jsp/administration/changePassword.jsp" />
+	</definition>
+	
+	<definition name="company" extends="DefaultTemplate">
+		<put-attribute name="title" value="Company" />
+		<put-attribute name="body" value="/WEB-INF/jsp/administration/company.jsp" />
+	</definition>
+	
+	<!-- Setup -->
+	<definition name="itemTypeList" extends="DefaultTemplate">
+		<put-attribute name="title" value="Item Type List"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/setup/itemTypeList.jsp" />
+	</definition>
+	
+	<definition name="itemType" extends="DefaultTemplate">
+		<put-attribute name="title" value="Item Type Management"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/setup/itemType.jsp" />
+	</definition>
+
+	<definition name="itemTypeAttribute" extends="DefaultTemplate">
+		<put-attribute name="title" value="Add/Edit Item Type Attribute"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/setup/itemTypeAttribute.jsp" />
+	</definition>
+
+	<definition name="itemTypeAttributeComboData" extends="DefaultTemplate">
+		<put-attribute name="title" value="Add/Edit Item Type Attribute Combo Data"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/setup/itemTypeAttributeComboData.jsp" />
+	</definition>
+	
+	<definition name="recipientList" extends="DefaultTemplate">
+		<put-attribute name="title" value="Recipient List"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/setup/recipientList.jsp" />
+	</definition>
+	
+	<definition name="recipient" extends="DefaultTemplate">
+		<put-attribute name="title" value="Recipient Management"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/setup/recipient.jsp" />
+	</definition>
+	
+	<definition name="vendorList" extends="DefaultTemplate">
+		<put-attribute name="title" value="Vendor List"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/setup/vendorList.jsp" />
+	</definition>
+	
+	<definition name="vendor" extends="DefaultTemplate">
+		<put-attribute name="title" value="Add/Edit Vendor"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/setup/vendor.jsp" />
+	</definition>
+		
+	<!-- Item -->	
+	<definition name="deliveryReport" extends="DefaultTemplate">
+		<put-attribute name="title" value="delivery Report" />
+		<put-attribute name="body" value="/WEB-INF/jsp/item/deliveryReport.jsp" />
+	</definition>
+	
+	<definition name="incomingReport" extends="DefaultTemplate">
+		<put-attribute name="title" value="incoming Report" />
+		<put-attribute name="body" value="/WEB-INF/jsp/item/incomingReport.jsp" />
+	</definition>
+	
+	<!-- SLip -->
+	<definition name="incomingSlip" extends="DefaultTemplate">
+		<put-attribute name="title" value="Incoming Slip"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/slip/incomingSlip.jsp" />
+	</definition>
+	
+	<definition name="slipList" extends="DefaultTemplate">
+		<put-attribute name="title" value="Slip List"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/slip/slipList.jsp" />
+	</definition>
+	
+	<definition name="slipListNew" extends="DefaultTemplate">
+		<put-attribute name="title" value="Slip List"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/slip/slipListNew.jsp" />
+	</definition>
+	
+	<definition name="slipForm" extends="DefaultTemplate">
+		<put-attribute name="title" value="Incoming Challan"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/slip/slipForm.jsp" />
+	</definition>
+		
+	<definition name="deliverySlip" extends="DefaultTemplate">
+		<put-attribute name="title" value="Delivery slip" />
+		<put-attribute name="body" value="/WEB-INF/jsp/slip/deliverySlip.jsp" />
+	</definition>
+
+	<definition name="slipSuccess" extends="DefaultTemplate">
+		<put-attribute name="title" value="Success Page" />
+		<put-attribute name="body" value="/WEB-INF/jsp/slip/slipSuccess.jsp" />
+	</definition>
+	
+	<definition name="returnSlip" extends="DefaultTemplate">
+		<put-attribute name="title" value="Return slip" />
+		<put-attribute name="body" value="/WEB-INF/jsp/slip/returnSlip.jsp" />
+	</definition>
+	
+	<definition name="requisitionSlip" extends="DefaultTemplate">
+		<put-attribute name="title" value="Requisition slip" />
+		<put-attribute name="body" value="/WEB-INF/jsp/slip/requisitionSlip.jsp" />
+	</definition>
+		
+	<definition name="replacementSlip" extends="DefaultTemplate">
+		<put-attribute name="title" value="Replacement slip" />
+		<put-attribute name="body" value="/WEB-INF/jsp/slip/replacementSlip.jsp" />
+	</definition>
+	
+	<definition name="returnSlipSearch" extends="DefaultTemplate">
+		<put-attribute name="title" value="Return slip Search" />
+		<put-attribute name="body" value="/WEB-INF/jsp/slip/returnSlipSearch.jsp" />
+	</definition>
+	
+	<definition name="replacementHistory" extends="DefaultTemplate">
+		<put-attribute name="title" value="Return slip Search" />
+		<put-attribute name="body" value="/WEB-INF/jsp/slip/replacementHistory.jsp" />
+	</definition>
+	
+	<definition name="collection" extends="DefaultTemplate">
+		<put-attribute name="title" value="Collection" />
+		<put-attribute name="body" value="/WEB-INF/jsp/slip/collection.jsp" />
+	</definition>
+	
+	<definition name="collectionList" extends="DefaultTemplate">
+		<put-attribute name="title" value="Collection List" />
+		<put-attribute name="body" value="/WEB-INF/jsp/slip/collectionList.jsp" />
+	</definition>
+	
+	<definition name="customerReport" extends="DefaultTemplate">
+		<put-attribute name="title" value="Customer Report" />
+		<put-attribute name="body" value="/WEB-INF/jsp/slip/customerReport.jsp" />
+	</definition>
+	
+	<definition name="payment" extends="DefaultTemplate">
+		<put-attribute name="title" value="Payment" />
+		<put-attribute name="body" value="/WEB-INF/jsp/slip/payment.jsp" />
+	</definition>
+	
+	<definition name="vendorReport" extends="DefaultTemplate">
+		<put-attribute name="title" value="Vendor Report" />
+		<put-attribute name="body" value="/WEB-INF/jsp/slip/vendorReport.jsp" />
+	</definition>
+	
+	<definition name="purchaseSaleReport" extends="DefaultTemplate">
+		<put-attribute name="title" value="Purchase Sale Report" />
+		<put-attribute name="body" value="/WEB-INF/jsp/item/purchaseSaleReport.jsp" />
+	</definition>
+	
+	<definition name="vendorItemBalance" extends="DefaultTemplate">
+		<put-attribute name="title" value="Vendor Item Balance" />
+		<put-attribute name="body" value="/WEB-INF/jsp/item/vendorItemBalance.jsp" />
+	</definition>
+	
+	<definition name="paymentList" extends="DefaultTemplate">
+		<put-attribute name="title" value="Payment List" />
+		<put-attribute name="body" value="/WEB-INF/jsp/slip/paymentList.jsp" />
+	</definition>
+	
+	<definition name="opening_balance" extends="DefaultTemplate">
+		<put-attribute name="title" value="Opening Balance" />
+		<put-attribute name="body" value="/WEB-INF/jsp/slip/opening_balance.jsp" />
+	</definition>
+	
+	<definition name="all_opening_balance" extends="DefaultTemplate">
+		<put-attribute name="title" value="Opening Balance List" />
+		<put-attribute name="body" value="/WEB-INF/jsp/slip/all_opening_balance.jsp" />
+	</definition>
+	
+	<definition name="vendorItemBalanceReport" extends="DefaultTemplate">
+		<put-attribute name="title" value="Vendor Item Balance Report" />
+		<put-attribute name="body" value="/WEB-INF/jsp/item/vendorItemBalanceReport.jsp" />
+	</definition>
+	
+	<definition name="approve_slip" extends="DefaultTemplate">
+		<put-attribute name="title" value="Approve Slips" />
+		<put-attribute name="body" value="/WEB-INF/jsp/slip/approve_slip.jsp" />
+	</definition>
+	
+	<definition name="viewIC" extends="PrintTemplate">
+		<put-attribute name="title" value="Laxmivandar | Incoming Challan" />
+		<put-attribute name="body" value="/WEB-INF/jsp/reports/viewIC.jsp" />
+	</definition>
+	
+	<definition name="viewDC" extends="PrintTemplate">
+		<put-attribute name="title" value="Laxmivandar | Delivery Challan" />
+		<put-attribute name="body" value="/WEB-INF/jsp/reports/viewDC.jsp" />
+	</definition>
+	
+	<definition name="viewCustomerBalance" extends="PrintTemplate">
+		<put-attribute name="title" value="Laxmivandar | Customer Balance" />
+		<put-attribute name="body" value="/WEB-INF/jsp/reports/viewCustomerBalance.jsp" />
+	</definition>
+	
+	<definition name="recipient/list" extends="SearchTemplate">
+		<put-attribute name="title" value="Customer List" />
+		<put-attribute name="body" value="/WEB-INF/jsp/setup/recipientSearchList.jsp" />
+	</definition>
+	
+	
+</tiles-definitions>
